@@ -369,6 +369,32 @@ function theme_customize_register($wp_customize) {
 	    'type' => 'text',
 	));
 }
+// 投稿のカテゴリー選択をラジオボタンに変更
+function my_print_footer_scripts() {
+echo "<script type='text/javascript'>
+jQuery(document).ready(function($){
+    var checkLists = $('#categorychecklist').find('li');
+    var cnt = 0;
+    checkLists.each(function(){
+        var check = $(this).find('input');
+        var input = $('<input>');
+        input.attr({
+            type: 'radio',
+            id: check.attr('id'),
+            name: check.attr('name'),
+            value: check.val()
+        });
+        if($(this).hasClass('popular-category') && cnt === 0){
+           input.prop('checked', true);
+           cnt++
+        }
+        input.insertBefore(check);
+        check.remove();
+    });
+});
+</script>";
+}
+add_action('admin_print_footer_scripts', 'my_print_footer_scripts', 21);
 // WordPressのWP-Pagenaviが返すHTMLをTwitter Bootstrapに合ったものに変更する
 	add_filter( 'wp_pagenavi', function($html){
 	$html = trim(preg_replace('/<\/?div([^>]*)?>/u', '', $html));
