@@ -1,3 +1,6 @@
+<?php if(have_posts()): while(have_posts()): the_post(); ?>
+
+<?php // 固定ページ ?>
 <?php if(is_page()): ?>
 
 	<article <?php post_class(); ?> id="post-<?php the_ID(); ?>">
@@ -10,6 +13,7 @@
 		</div>
 	</article>
 
+<?php // 投稿ページ ?>
 <?php elseif(is_single()): ?>
 
 	<article <?php post_class(); ?> id="post-<?php the_ID(); ?>">
@@ -27,6 +31,7 @@
 		<li class="next"><?php next_post_link('%link', '<i class="fa fa-chevron-right"></i>',true); ?></li>
 	</ul>
 
+<?php // アーカイブページ ?>
 <?php else: ?>
 
 	<article <?php post_class(); ?> id="post-<?php the_ID(); ?>">
@@ -59,3 +64,5 @@
 	</article>
 
 <?php endif; ?>
+
+<?php endwhile; endif; ?>
