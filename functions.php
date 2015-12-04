@@ -8,27 +8,23 @@ function load_cdn() {
 		wp_deregister_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-core','//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js', array(), '1.11.1');
 		wp_deregister_script('bootstrap');
-		wp_enqueue_script('bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js', array(), '');
-		wp_deregister_script('ajaxzip3');
-		wp_enqueue_script('wpcf7-ajaxzip3','//ajaxzip3.github.io/ajaxzip3.js', array(), '');
+		wp_enqueue_script('bootstrap', echo bloginfo('template_url'); . '/js/bootstrap.min.js', array(), '');
+		wp_deregister_script('tabcollapse');
+		wp_enqueue_script('tabcollapse', echo bloginfo('template_url'); . '/js/bootstrap-tabcollapse.js', array(), '');
+		wp_deregister_script('jpostal');
+		wp_enqueue_script('jpostal','//jpostal-1006.appspot.com/jquery.jpostal.js', array(), '');
     }
 }
 add_action('init', 'load_cdn');
 // カスタムメニュー
-//	register_nav_menu( 'g_menu1', 'グローバルナビ1' );
-//	register_nav_menu( 'g_menu2', 'グローバルナビ2' );
-//	register_nav_menu( 'g_menu3', 'グローバルナビ3' );
-//	register_nav_menu( 'f_menu', 'フッターメニュー' );
-//	register_nav_menu( 'f_sub_menu', 'フッターサブメニュー' );
-//	register_nav_menu( 'g_menu_sp', 'スマホメニュー' );
-//	register_nav_menu( 'list_menu_sp', 'スマホリスト' );
+register_nav_menu( 'g_menu1', 'グローバルナビ1' );
+register_nav_menu( 'g_menu2', 'グローバルナビ2' );
+register_nav_menu( 'g_menu3', 'グローバルナビ3' );
+register_nav_menu( 'f_menu', 'フッターメニュー' );
+register_nav_menu( 'f_sub_menu', 'フッターサブメニュー' );
+register_nav_menu( 'g_menu_sp', 'スマホメニュー' );
+register_nav_menu( 'list_menu_sp', 'スマホリスト' );
 add_theme_support( 'menus' );
-if ( !is_nav_menu('header_navi') || !is_nav_menu('footer_navi') ) {
-	$menu_id1 = wp_create_nav_menu('header_navi');
-	$menu_id2 = wp_create_nav_menu('footer_navi');
-	wp_update_nav_menu_item($menu_id1, 1);
-	wp_update_nav_menu_item($menu_id2, 1);
-}
 // 管理画面の記事/固定ページ一覧のテーブルにIDの列を加える
 add_filter('manage_posts_columns', 'posts_columns_id', 5);
 add_action('manage_posts_custom_column', 'posts_custom_id_columns', 5, 2);
